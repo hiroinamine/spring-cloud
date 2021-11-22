@@ -10,7 +10,7 @@ spring:
     config:
       server:
         git:
-          uri: file://${user.home}/Git/config-repo
+          uri: https://github.com/hiroinamine/spring-config-repo.git
 
 management:
   endpoints:
