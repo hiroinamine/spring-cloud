@@ -1,0 +1,46 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: spring-eureka-feign-client
+  main:
+    banner-mode: off
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    hostname: ${DOMAIN_NAME:localhost}
+    preferIpAddress: true
+    #    lease-renewal-interval-in-seconds: 1
+    #    lease-expiration-duration-in-seconds: 2
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+
+---
+spring:
+  profiles: heroku
+
+eureka:
+  instance:
+    preferIpAddress: false
+    nonSecurePort: 80
+    statusPageUrl: http://${eureka.instance.hostname}:${eureka.instance.nonSecurePort}/actuator/info
+    healthCheckUrl: http://${eureka.instance.hostname}:${eureka.instance.nonSecurePort}/actuator/health

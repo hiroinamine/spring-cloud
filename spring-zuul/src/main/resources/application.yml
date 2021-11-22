@@ -1,0 +1,43 @@
+server:
+  port: 8762
+
+spring:
+  application:
+    name: spring-zuul
+  main:
+    banner-mode: off
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    hostname: ${DOMAIN_NAME:localhost}
+    preferIpAddress: true
+    #    lease-renewal-interval-in-seconds: 1
+    #    lease-expiration-duration-in-seconds: 2
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+---
+spring:
+  profiles: heroku
+
+eureka:
+  instance:
+    preferIpAddress: false
+    nonSecurePort: 80
+    statusPageUrl: http://${eureka.instance.hostname}:${eureka.instance.nonSecurePort}/actuator/info
+    healthCheckUrl: http://${eureka.instance.hostname}:${eureka.instance.nonSecurePort}/actuator/health

@@ -1,0 +1,23 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: spring-eureka-server
+  main:
+    banner-mode: off
+#  security:
+#    user:
+#      name: ${EUREKA_USER_NAME:user}
+#      password: ${eureka.password}
+
+eureka:
+  instance:
+    hostname: localhost
+    appname: ${spring.application.name}
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#  password: ${EUREKA_USER_PASSWORD:password}
