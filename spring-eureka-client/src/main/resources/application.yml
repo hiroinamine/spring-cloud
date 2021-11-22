@@ -36,8 +36,14 @@ eureka:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
 
+user:
+  role: Guest
+
 ---
 spring:
+  cloud:
+    config:
+      label: heroku
   profiles: heroku
 
 eureka:

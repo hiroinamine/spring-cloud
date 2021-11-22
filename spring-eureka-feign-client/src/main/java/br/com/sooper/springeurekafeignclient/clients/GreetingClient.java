@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(
         contextId = "GreetingClient",
-        name = "SPRING-EUREKA-CLIENT",
-        url = " "
-//        name = "bla",
-//        url = "https://spring-eureka-client-007.herokuapp.com"
+        name = "spring-eureka-client"
 )
 public interface GreetingClient {
     @RequestMapping(method = RequestMethod.GET, value = "/greeting")
